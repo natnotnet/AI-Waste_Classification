@@ -33,7 +33,7 @@ pip install -r requirements.txt
 ```
 
 ### 4. Downloading our model
-Download our best performing classification model from (TO INSERT LINK), and insert it into the folder.
+Download our best performing classification model from [this Google Drive link](https://drive.google.com/file/d/1-WNVEBm1B9TajBI1-cKRoh8yuW3Q8k3z/view?usp=sharing), and insert it into the folder. Note that you should not rename the model file.
 
 ### 5. Running the webpage
 Run the following command to start the Streamlit app.

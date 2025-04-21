@@ -8,10 +8,6 @@ import numpy as np
 # Default target size
 target_size = (224, 224)
 
-
-# You need to update the preprocess_for_classification function in process_image.py
-# Here's what it should look like:
-
 def preprocess_for_classification(image):
     """
     Process an uploaded image for classification with the RGB model.
@@ -29,7 +25,6 @@ def preprocess_for_classification(image):
     image = image.resize((224, 224))
     
     # Convert to tensor and normalize
-    # Convert PIL Image to tensor [0, 255] -> [0, 1]
     tensor = F.to_tensor(image)
     
     # Normalize with ImageNet mean and std

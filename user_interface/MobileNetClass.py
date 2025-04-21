@@ -4,7 +4,7 @@ import numpy as np
 import pytorch_lightning as L
 from torch.optim.lr_scheduler import OneCycleLR
 
-from torchvision.models import efficientnet_v2_m, EfficientNet_V2_M_Weights
+from torchvision.models import mobilenet_v2, MobileNet_V2_Weights
 
 # Torchmetrics for evaluation
 from torchmetrics.classification import (
@@ -16,15 +16,7 @@ from torchmetrics.classification import (
     ConfusionMatrix
 )
 
-class EfficientNetV2MOptimized(L.LightningModule):
-    """
-    Enhanced EfficientNetV2-M with Optimized Regularization:
-    1. Learning rate scheduling
-    2. Progressive unfreezing
-    3. Advanced regularization techniques
-    4. Mixup data augmentation
-    5. Optimized training process
-    """
+class MobileNetV2_6(L.LightningModule):
 
     def __init__(self, n_classes, learning_rate=3e-4, weight_decay=1e-4):
         super().__init__()
@@ -33,23 +25,15 @@ class EfficientNetV2MOptimized(L.LightningModule):
         self.weight_decay = weight_decay
         self.mixup_alpha = 0.2  # Parameter for mixup augmentation
 
-        # Load pre-trained EfficientNetV2-M model
-        self.model = efficientnet_v2_m(weights=EfficientNet_V2_M_Weights.DEFAULT)
-        
-        # IMPORTANT: No need to modify the first conv layer for RGB inputs
-        # since the model already expects 3 channels by default
-        # REMOVE these lines as they were converting the model to accept grayscale
-        # original_conv = self.model.features[0][0]
-        # new_conv = nn.Conv2d(...)
-        # self.model.features[0][0] = new_conv
+        # Load pre-trained MobileNetV2 model
+        self.model = mobilenet_v2(weights=MobileNet_V2_Weights.DEFAULT)
 
         # Initialize frozen layer flags for progressive unfreezing
         self.unfreeze_stage = 0
 
         # Initially freeze all feature extraction layers
-        for i in range(len(self.model.features)):
-            for param in self.model.features[i].parameters():
-                param.requires_grad = False
+        for param in self.model.features.parameters():
+            param.requires_grad = False
 
         # Get the number of features in the final layer
         in_features = self.model.classifier[1].in_features
@@ -59,11 +43,11 @@ class EfficientNetV2MOptimized(L.LightningModule):
             nn.Dropout(0.4),  # Increased dropout rate
             nn.Linear(in_features, 1024),
             nn.BatchNorm1d(1024),
-            nn.SiLU(),  # SiLU/Swish activation (better than ReLU)
+            nn.ReLU(),  # SiLU/Swish activation (better than ReLU)
             nn.Dropout(0.3),
             nn.Linear(1024, 512),
             nn.BatchNorm1d(512),
-            nn.SiLU(),
+            nn.ReLU(),
             nn.Dropout(0.2),
             nn.Linear(512, n_classes)
         )
@@ -199,7 +183,7 @@ class EfficientNetV2MOptimized(L.LightningModule):
         """
         Progressive unfreezing of layers based on training epoch.
         """
-        # Unfreeze more layers as training progresses
+        # Get total number of blocks in MobileNetV2 features
         total_blocks = len(self.model.features)
 
         if self.current_epoch == 3 and self.unfreeze_stage == 0:

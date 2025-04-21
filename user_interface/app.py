@@ -7,7 +7,7 @@ from io import BytesIO
 import torchvision.transforms.functional as F
 
 # import functions
-from EfficientNetClass import EfficientNetV2MOptimized
+from MobileNetClass import MobileNetV2_6
 from process_image import process_uploaded_image, preprocess_for_classification
 from waste_information import waste_disposal_info
 
@@ -17,10 +17,10 @@ print(f"Using device: {device}")
 
 ## Load the model ##
 def load_model(model_path):
-    model = EfficientNetV2MOptimized(n_classes=8)
+    model = MobileNetV2_6(n_classes=8)
     model_state = torch.load(model_path, map_location=device)
     
-    if isinstance(model_state, EfficientNetV2MOptimized):
+    if isinstance(model_state, MobileNetV2_6):
         model = model_state
     else:
         model.load_state_dict(model_state)
@@ -32,7 +32,8 @@ def load_model(model_path):
 # Load the model once when the app starts
 @st.cache_resource
 def get_model():
-    return load_model("efficientnetv2-method5-RGB.pth")
+    return load_model("mobilenetv2-method6.pth")
+
 
 # Convert image to base64 for HTML display
 def image_to_base64(img):
