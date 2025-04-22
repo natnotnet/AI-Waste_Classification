@@ -14,3 +14,5 @@ Due to file size constraints, our trained model files are not uploaded to the re
 - [Best MobileNet model](https://drive.google.com/file/d/1-WNVEBm1B9TajBI1-cKRoh8yuW3Q8k3z/view?usp=sharing) (our final model)
 - [Best ResNet model](https://drive.google.com/file/d/1EZpr-w4HANeEKTvkQlvn9nHb80xAde3X/view?usp=sharing)
 - [Best DenseNet model](https://drive.google.com/file/d/1581sASwylt2xipzEkjMG26nVVm8HB5_I/view?usp=sharing)
+- [Best Inception V3 model](https://drive.google.com/file/d/1-EVu6rGL89D-gW5PjEIfjQ_I-P7V2GpT/view?usp=drive_link)
+
