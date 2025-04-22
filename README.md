@@ -13,5 +13,4 @@ Due to file size constraints, our trained model files are not uploaded to the re
 - [Best EfficientNet model](https://drive.google.com/file/d/1gr6DW18wgXP7RLoVIjp9uBtKncjqDtYD/view?usp=sharing)
 - [Best MobileNet model](https://drive.google.com/file/d/1-WNVEBm1B9TajBI1-cKRoh8yuW3Q8k3z/view?usp=sharing) (our final model)
 - [Best ResNEt model](https://drive.google.com/file/d/1EZpr-w4HANeEKTvkQlvn9nHb80xAde3X/view?usp=sharing)
-(our final model)
 - [Best DenseNet model](https://drive.google.com/file/d/1581sASwylt2xipzEkjMG26nVVm8HB5_I/view?usp=sharing)
